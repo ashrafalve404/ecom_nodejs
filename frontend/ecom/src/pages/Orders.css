@@ -1,0 +1,96 @@
+.orders h1 {
+  margin-bottom: 2rem;
+  font-weight: 500;
+}
+
+.orders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.order-card {
+  background: white;
+  border: 1px solid #f0f0f0;
+  padding: 1.5rem;
+}
+
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.order-header > div {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.order-id {
+  font-weight: 500;
+}
+
+.order-status {
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  border-radius: 2rem;
+  text-transform: capitalize;
+}
+
+.order-status.pending {
+  background: #fff3e0;
+  color: #f57c00;
+}
+
+.order-status.completed {
+  background: #e8f5e9;
+  color: #43a047;
+}
+
+.order-status.cancelled {
+  background: #ffebee;
+  color: #e53935;
+}
+
+.order-date {
+  color: #999;
+  font-size: 0.85rem;
+}
+
+.order-body {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.order-items {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.order-total {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.orders-empty {
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.orders-empty .empty-icon {
+  font-size: 4rem;
+  color: #ddd;
+  margin-bottom: 1rem;
+}
+
+.orders-empty h2 {
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.orders-empty p {
+  color: #666;
+}
