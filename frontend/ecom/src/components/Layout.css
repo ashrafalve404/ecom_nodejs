@@ -76,7 +76,6 @@
 }
 
 .footer {
-<<<<<<< HEAD
   background: #1a1a1a;
   color: #fff;
   padding: 4rem 4rem 2rem;
@@ -165,15 +164,6 @@
   }
 }
 
-=======
-  padding: 2rem 4rem;
-  text-align: center;
-  border-top: 1px solid #f0f0f0;
-  color: #999;
-  font-size: 0.85rem;
-}
-
->>>>>>> 8f9a892d8338df3b8805344876bf40967713147e
 @media (max-width: 768px) {
   .header,
   .main,
@@ -185,7 +175,6 @@
   .nav {
     gap: 1rem;
   }
-<<<<<<< HEAD
 
   .footer-content {
     grid-template-columns: 1fr;
@@ -197,6 +186,4 @@
     gap: 1rem;
     text-align: center;
   }
-=======
->>>>>>> 8f9a892d8338df3b8805344876bf40967713147e
 }
