@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { api, type Product } from "../api";
 import { useCart } from "../context/CartContext";
 import "./Home.css";
@@ -12,6 +13,7 @@ export function Home() {
   const [error, setError] = useState<string>("");
   const { addToCart } = useCart();
   const searchTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     loadCategories();
@@ -85,7 +87,7 @@ export function Home() {
       ) : (
         <div className="products-grid">
           {products.map((product) => (
-            <div key={product.id} className="product-card">
+            <div key={product.id} className="product-card" onClick={() => navigate(`/product/${product.id}`)}>
               <div className="product-image">
                 {product.image ? (
                   <img src={product.image} alt={product.name} />
@@ -93,13 +95,16 @@ export function Home() {
                   <div className="placeholder-image">◆</div>
                 )}
               </div>
-              <div className="product-info">
+              <div className="product-info" onClick={(e) => e.stopPropagation()}>
                 <span className="product-category">{product.category}</span>
                 <h3 className="product-name">{product.name}</h3>
                 <p className="product-price">${product.price.toFixed(2)}</p>
                 <button
                   className="add-btn"
-                  onClick={() => addToCart(product)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    addToCart(product);
+                  }}
                   disabled={product.stock === 0}
                 >
                   {product.stock === 0 ? "Out of Stock" : "Add to Cart"}

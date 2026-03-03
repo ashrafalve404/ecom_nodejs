@@ -10,6 +10,7 @@ import { Privacy } from "./pages/Privacy";
 import { Careers } from "./pages/Careers";
 import { AdminLogin } from "./pages/AdminLogin";
 import { AdminDashboard } from "./pages/AdminDashboard";
+import { ProductDetails } from "./pages/ProductDetails";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route element={<Layout />}>
             <Route path="/" element={<Home />} />
+            <Route path="/product/:id" element={<ProductDetails />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/orders" element={<Orders />} />
             <Route path="/about" element={<About />} />
