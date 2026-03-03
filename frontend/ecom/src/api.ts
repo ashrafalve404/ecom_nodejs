@@ -14,10 +14,14 @@ const fetchApi = async (endpoint: string, options?: RequestInit) => {
 
 export const api = {
   getProducts: (params?: { category?: string; search?: string }) => {
+<<<<<<< HEAD
     const queryParams = new URLSearchParams();
     if (params?.category) queryParams.set("category", params.category);
     if (params?.search) queryParams.set("search", params.search);
     const query = queryParams.toString();
+=======
+    const query = new URLSearchParams(params as any).toString();
+>>>>>>> 8f9a892d8338df3b8805344876bf40967713147e
     return fetchApi(`/products${query ? `?${query}` : ""}`);
   },
   getProduct: (id: number) => fetchApi(`/products/${id}`),

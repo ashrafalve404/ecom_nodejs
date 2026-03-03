@@ -28,6 +28,7 @@ export function Layout() {
       </header>
       <main className="main"><Outlet /></main>
       <footer className="footer">
+<<<<<<< HEAD
         <div className="footer-content">
           <div className="footer-section">
             <div className="footer-logo">
@@ -63,6 +64,9 @@ export function Layout() {
             <a href="#" aria-label="Facebook">f</a>
           </div>
         </div>
+=======
+        <p>© 2024 Minimal E-Commerce. All rights reserved.</p>
+>>>>>>> 8f9a892d8338df3b8805344876bf40967713147e
       </footer>
     </div>
   );

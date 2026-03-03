@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { useState, useEffect, useRef } from "react";
+=======
+import { useState, useEffect } from "react";
+>>>>>>> 8f9a892d8338df3b8805344876bf40967713147e
 import { api, type Product } from "../api";
 import { useCart } from "../context/CartContext";
 import "./Home.css";
@@ -8,6 +12,7 @@ export function Home() {
   const [categories, setCategories] = useState<string[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [search, setSearch] = useState("");
+<<<<<<< HEAD
   const [initialLoading, setInitialLoading] = useState(true);
   const [error, setError] = useState<string>("");
   const { addToCart } = useCart();
@@ -56,6 +61,41 @@ export function Home() {
   };
 
   if (initialLoading) return <div className="loading">Loading...</div>;
+=======
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string>("");
+  const { addToCart } = useCart();
+
+  useEffect(() => {
+    loadData();
+  }, []);
+
+  useEffect(() => {
+    loadData();
+  }, [selectedCategory, search]);
+
+  const loadData = async () => {
+    setLoading(true);
+    setError("");
+    try {
+      console.log("Fetching products...");
+      const [productsData, categoriesData] = await Promise.all([
+        api.getProducts({ category: selectedCategory || undefined, search: search || undefined }),
+        api.getCategories(),
+      ]);
+      console.log("Products received:", productsData);
+      setProducts(productsData);
+      setCategories(categoriesData);
+    } catch (err: any) {
+      console.error("Failed to load:", err);
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loading) return <div className="loading">Loading...</div>;
+>>>>>>> 8f9a892d8338df3b8805344876bf40967713147e
   if (error) return <div className="error">Error: {error}</div>;
 
   return (
@@ -80,6 +120,11 @@ export function Home() {
         />
       </div>
 
+<<<<<<< HEAD
+=======
+      <p style={{marginBottom: '1rem', color: '#666'}}>Products count: {products.length}</p>
+
+>>>>>>> 8f9a892d8338df3b8805344876bf40967713147e
       {products.length === 0 ? (
         <div className="empty">No products found</div>
       ) : (

@@ -61,6 +61,7 @@
   gap: 2rem;
 }
 
+<<<<<<< HEAD
 @media (max-width: 640px) {
   .products-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -68,6 +69,8 @@
   }
 }
 
+=======
+>>>>>>> 8f9a892d8338df3b8805344876bf40967713147e
 .product-card {
   background: white;
   border-radius: 4px;

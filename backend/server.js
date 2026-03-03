@@ -12,8 +12,11 @@ app.use(cors({
   credentials: true
 }));
 
+<<<<<<< HEAD
 app.use(express.json());
 
+=======
+>>>>>>> 8f9a892d8338df3b8805344876bf40967713147e
 app.get("/", (req, res) => {
   res.json({ message: "E-commerce API", version: "1.0" });
 });
