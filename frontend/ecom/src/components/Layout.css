@@ -67,6 +67,21 @@
   border-color: #1a1a1a;
 }
 
+.nav .auth-btn {
+  background: #333;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.nav .auth-btn:hover {
+  background: #000;
+}
+
 .main {
   flex: 1;
   padding: 3rem 4rem;

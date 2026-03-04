@@ -1,12 +1,19 @@
 import { Outlet, Link, useNavigate, useLocation } from "react-router-dom";
 import { useCart } from "../context/CartContext";
+import { useAuth } from "../context/AuthContext";
 import "./Layout.css";
 
 export function Layout() {
   const { count } = useCart();
+  const { isAuthenticated, logout } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const isAdmin = location.pathname.startsWith("/admin");
+
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
 
   if (isAdmin) return <Outlet />;
 
@@ -23,6 +30,14 @@ export function Layout() {
             Cart ({count})
           </Link>
           <Link to="/orders" className={location.pathname === "/orders" ? "active" : ""}>Orders</Link>
+          {isAuthenticated ? (
+            <>
+              <Link to="/profile" className={location.pathname === "/profile" ? "active" : ""}>Profile</Link>
+              <button onClick={handleLogout} className="auth-btn">Logout</button>
+            </>
+          ) : (
+            <Link to="/signin" className="auth-btn">Sign In</Link>
+          )}
           <button onClick={() => navigate("/admin")} className="admin-btn">Admin</button>
         </nav>
       </header>

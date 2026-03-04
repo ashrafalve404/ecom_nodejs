@@ -1,15 +1,27 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
+import { useAuth } from "../context/AuthContext";
 import { api } from "../api";
 import "./Cart.css";
 
 export function Cart() {
   const { items, removeFromCart, updateQuantity, total, clearCart } = useCart();
+  const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const [customerInfo, setCustomerInfo] = useState({ name: "", email: "", address: "" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate("/signin", { state: { from: "/cart" } });
+    }
+  }, [isAuthenticated, navigate]);
+
+  if (!isAuthenticated) {
+    return null;
+  }
 
   const handleCheckout = async (e: React.FormEvent) => {
     e.preventDefault();

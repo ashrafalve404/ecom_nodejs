@@ -1,8 +1,22 @@
 const API_URL = "/api";
 
+const getAuthHeaders = (): Record<string, string> => {
+  const token = localStorage.getItem("auth_token");
+  if (token) {
+    return { Authorization: `Bearer ${token}` };
+  }
+  return {};
+};
+
 const fetchApi = async (endpoint: string, options?: RequestInit) => {
+  const authHeaders = getAuthHeaders();
+  const headers: Record<string, string> = { 
+    "Content-Type": "application/json",
+    ...authHeaders,
+  };
+  
   const response = await fetch(`${API_URL}${endpoint}`, {
-    headers: { "Content-Type": "application/json", ...options?.headers },
+    headers: { ...headers, ...options?.headers },
     ...options,
   });
   if (!response.ok) {
@@ -13,6 +27,14 @@ const fetchApi = async (endpoint: string, options?: RequestInit) => {
 };
 
 export const api = {
+  signup: (data: { name: string; email: string; password: string }) => 
+    fetchApi("/auth/signup", { method: "POST", body: JSON.stringify(data) }),
+  
+  signin: (data: { email: string; password: string }) => 
+    fetchApi("/auth/signin", { method: "POST", body: JSON.stringify(data) }),
+  
+  getProfile: () => fetchApi("/auth/profile"),
+
   getProducts: (params?: { category?: string; search?: string }) => {
     const queryParams = new URLSearchParams();
     if (params?.category) queryParams.set("category", params.category);
