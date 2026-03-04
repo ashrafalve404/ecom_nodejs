@@ -15,6 +15,7 @@ import { ProductDetails } from "./pages/ProductDetails";
 import { SignIn } from "./pages/SignIn";
 import { SignUp } from "./pages/SignUp";
 import { Profile } from "./pages/Profile";
+import { GoogleAuthHandler } from "./pages/GoogleAuthHandler";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
             <Route element={<Layout />}>
               <Route path="/signin" element={<SignIn />} />
               <Route path="/signup" element={<SignUp />} />
+              <Route path="/auth/google" element={<GoogleAuthHandler />} />
               <Route path="/" element={<Home />} />
               <Route path="/product/:id" element={<ProductDetails />} />
               <Route path="/cart" element={<Cart />} />

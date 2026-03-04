@@ -38,7 +38,6 @@ export function Layout() {
           ) : (
             <Link to="/signin" className="auth-btn">Sign In</Link>
           )}
-          <button onClick={() => navigate("/admin")} className="admin-btn">Admin</button>
         </nav>
       </header>
       <main className="main"><Outlet /></main>

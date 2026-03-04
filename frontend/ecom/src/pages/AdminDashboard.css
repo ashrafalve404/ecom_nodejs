@@ -6,6 +6,12 @@
   color: #999;
 }
 
+.no-data {
+  text-align: center;
+  padding: 2rem;
+  color: #999;
+}
+
 .admin {
   display: flex;
   min-height: 100vh;
@@ -289,4 +295,159 @@
   .product-form input {
     min-width: 100%;
   }
+}
+
+.customer-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.customer-name {
+  font-weight: 500;
+}
+
+.customer-email {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.customer-phone {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.address-cell {
+  max-width: 150px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.items-preview {
+  font-size: 0.75rem;
+  color: #888;
+  display: flex;
+  flex-direction: column;
+}
+
+.view-btn {
+  padding: 0.375rem 0.75rem;
+  border: none;
+  cursor: pointer;
+  font-size: 0.8rem;
+  background: #e8f5e9;
+  color: #43a047;
+  border-radius: 4px;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: white;
+  width: 90%;
+  max-width: 600px;
+  max-height: 80vh;
+  overflow-y: auto;
+  border-radius: 8px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #666;
+}
+
+.modal-body {
+  padding: 1.5rem;
+}
+
+.order-info-section {
+  margin-bottom: 1.5rem;
+}
+
+.order-info-section h3 {
+  font-size: 1rem;
+  margin-bottom: 0.75rem;
+  color: #333;
+}
+
+.order-info-section p {
+  margin: 0.25rem 0;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.status-badge {
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  text-transform: capitalize;
+}
+
+.status-badge.pending {
+  background: #fff3e0;
+  color: #f57c00;
+}
+
+.status-badge.completed {
+  background: #e8f5e9;
+  color: #43a047;
+}
+
+.status-badge.cancelled {
+  background: #ffebee;
+  color: #e53935;
+}
+
+.items-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.items-table th,
+.items-table td {
+  padding: 0.5rem;
+  text-align: left;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.items-table th {
+  font-size: 0.8rem;
+  color: #666;
+  background: #fafafa;
+}
+
+.items-table td {
+  font-size: 0.85rem;
+}
+
+.items-table tfoot td {
+  border-top: 2px solid #333;
+  font-weight: 600;
 }

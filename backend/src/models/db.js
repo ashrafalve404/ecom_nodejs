@@ -24,6 +24,7 @@ db.exec(`
     status TEXT DEFAULT 'pending',
     customer_name TEXT,
     customer_email TEXT,
+    customer_phone TEXT,
     shipping_address TEXT,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -51,11 +52,28 @@ db.exec(`
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
     email TEXT NOT NULL UNIQUE,
-    password TEXT NOT NULL,
+    password TEXT,
+    is_verified INTEGER DEFAULT 0,
+    auth_provider TEXT DEFAULT 'local',
+    google_id TEXT,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
   );
 `);
+
+try {
+  db.exec("ALTER TABLE users ADD COLUMN is_verified INTEGER DEFAULT 0");
+} catch (e) {}
+try {
+  db.exec("ALTER TABLE users ADD COLUMN auth_provider TEXT DEFAULT 'local'");
+} catch (e) {}
+try {
+  db.exec("ALTER TABLE users ADD COLUMN google_id TEXT");
+} catch (e) {}
+
+try {
+  db.exec("ALTER TABLE orders ADD COLUMN customer_phone TEXT");
+} catch (e) {}
 
 const productCount = db.prepare("SELECT COUNT(*) as count FROM products").get();
 if (productCount.count === 0) {

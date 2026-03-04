@@ -49,8 +49,10 @@ export const api = {
   getCategories: () => fetchApi("/products/categories"),
   createOrder: (order: any) => fetchApi("/orders", { method: "POST", body: JSON.stringify(order) }),
   getOrders: () => fetchApi("/orders"),
+  getAllOrders: () => fetchApi("/orders/all"),
   getOrder: (id: number) => fetchApi(`/orders/${id}`),
   updateOrderStatus: (id: number, status: string) => fetchApi(`/orders/${id}`, { method: "PATCH", body: JSON.stringify({ status }) }),
+  deleteOrder: (id: number) => fetchApi(`/orders/${id}`, { method: "DELETE" }),
   getStats: () => fetchApi("/orders/stats"),
 };
 
@@ -64,15 +66,29 @@ export interface Product {
   image?: string;
 }
 
+export interface OrderItem {
+  id: number;
+  order_id: number;
+  product_id: number;
+  product_name: string;
+  quantity: number;
+  price: number;
+}
+
 export interface Order {
   id: number;
+  user_id: number;
   total: number;
   status: string;
   customer_name?: string;
   customer_email?: string;
+  customer_phone?: string;
   shipping_address?: string;
   created_at: string;
-  items_summary?: string;
+  updated_at?: string;
+  user_name?: string;
+  user_email?: string;
   item_count?: number;
-  items?: any[];
+  items_summary?: string;
+  items?: OrderItem[];
 }

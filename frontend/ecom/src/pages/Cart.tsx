@@ -9,7 +9,7 @@ export function Cart() {
   const { items, removeFromCart, updateQuantity, total, clearCart } = useCart();
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
-  const [customerInfo, setCustomerInfo] = useState({ name: "", email: "", address: "" });
+  const [customerInfo, setCustomerInfo] = useState({ name: "", email: "", phone: "", address: "" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -29,7 +29,13 @@ export function Cart() {
     setError("");
     try {
       const orderItems = items.map((item) => ({ productId: item.product.id, quantity: item.quantity }));
-      await api.createOrder({ items: orderItems, ...customerInfo });
+      await api.createOrder({ 
+        items: orderItems, 
+        customer_name: customerInfo.name,
+        customer_email: customerInfo.email,
+        customer_phone: customerInfo.phone,
+        shipping_address: customerInfo.address
+      });
       clearCart();
       navigate("/orders");
     } catch (err: any) {
@@ -105,6 +111,13 @@ export function Cart() {
               placeholder="Email Address"
               value={customerInfo.email}
               onChange={(e) => setCustomerInfo({ ...customerInfo, email: e.target.value })}
+              required
+            />
+            <input
+              type="tel"
+              placeholder="Phone Number"
+              value={customerInfo.phone}
+              onChange={(e) => setCustomerInfo({ ...customerInfo, phone: e.target.value })}
               required
             />
             <textarea

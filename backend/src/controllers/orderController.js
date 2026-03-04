@@ -7,14 +7,38 @@ const OrderController = {
       const orders = db.prepare(`
         SELECT o.*, 
           GROUP_CONCAT(oi.product_name || ' x' || oi.quantity) as items_summary,
-          COUNT(oi.id) as item_count
+          COUNT(oi.id) as item_count,
+          u.name as user_name, u.email as user_email
         FROM orders o
         LEFT JOIN order_items oi ON o.id = oi.order_id
+        LEFT JOIN users u ON o.user_id = u.id
         WHERE o.user_id = ?
         GROUP BY o.id
         ORDER BY o.created_at DESC
       `).all(userId);
       res.json(orders);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  },
+
+  getAllAdmin: (req, res) => {
+    try {
+      const orders = db.prepare(`
+        SELECT o.*, 
+          u.name as user_name, u.email as user_email
+        FROM orders o
+        LEFT JOIN users u ON o.user_id = u.id
+        GROUP BY o.id
+        ORDER BY o.created_at DESC
+      `).all();
+      
+      const ordersWithItems = orders.map(order => {
+        const items = db.prepare("SELECT * FROM order_items WHERE order_id = ?").all(order.id);
+        return { ...order, items };
+      });
+      
+      res.json(ordersWithItems);
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
@@ -36,7 +60,7 @@ const OrderController = {
 
   create: (req, res) => {
     try {
-      const { items, customer_name, customer_email, shipping_address } = req.body;
+      const { items, customer_name, customer_email, customer_phone, shipping_address } = req.body;
       const userId = req.user.id;
 
       if (!items || !Array.isArray(items) || items.length === 0) {
@@ -65,9 +89,9 @@ const OrderController = {
       }
 
       const insertOrder = db.prepare(
-        "INSERT INTO orders (user_id, total, status, customer_name, customer_email, shipping_address) VALUES (?, ?, ?, ?, ?, ?)"
+        "INSERT INTO orders (user_id, total, status, customer_name, customer_email, customer_phone, shipping_address) VALUES (?, ?, ?, ?, ?, ?, ?)"
       );
-      const result = insertOrder.run(userId, total, "pending", customer_name || "", customer_email || "", shipping_address || "");
+      const result = insertOrder.run(userId, total, "pending", customer_name || "", customer_email || "", customer_phone || "", shipping_address || "");
 
       const insertItem = db.prepare(
         "INSERT INTO order_items (order_id, product_id, product_name, quantity, price) VALUES (?, ?, ?, ?, ?)"
@@ -96,6 +120,23 @@ const OrderController = {
 
       const order = db.prepare("SELECT * FROM orders WHERE id = ?").get(req.params.id);
       res.json(order);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  },
+
+  delete: (req, res) => {
+    try {
+      const orderId = req.params.id;
+      
+      db.prepare("DELETE FROM order_items WHERE order_id = ?").run(orderId);
+      const result = db.prepare("DELETE FROM orders WHERE id = ?").run(orderId);
+
+      if (result.changes === 0) {
+        return res.status(404).json({ error: "Order not found" });
+      }
+
+      res.json({ message: "Order deleted successfully" });
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
